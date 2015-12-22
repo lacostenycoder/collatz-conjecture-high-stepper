@@ -19,7 +19,7 @@ def json_empty?(string)
 end
 
 # don't use json on smaller numbers
-if input > 99999
+if input > 222200
 	FileUtils.touch 'lookup.json' # insure file exsists before writing
 	jsonfile = File.read('lookup.json')
 	json_open = true
@@ -34,6 +34,7 @@ else
 	hash = Hash.new
 end
 
+# filter hash key limit to user input value
 @hash_limit = hash.select{|k,v| k.to_i <= input} || Hash.new
 
 collatz = lambda do |key, this_hash|
@@ -64,19 +65,13 @@ def largest_hash_key
 	@hash_limit.max_by{|k,v| v}
 end
 
-def largest_in_json
-	@hash_limit.sort_by{|k,v| v}.last
-end
-
-if hash[input.to_s]
-	key = largest_in_json[0]
-else
+if !hash[input.to_s]
 	while iterate > 2
 		collatz.call iterate, @hash_limit
 		iterate -= 1
 	end
-	key = largest_hash_key[0]
 end
+key = largest_hash_key[0]
 
 if json_open && !hash[input]
 	File.open("lookup.json","w") do |f|

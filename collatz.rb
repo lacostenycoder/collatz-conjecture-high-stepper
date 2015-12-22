@@ -8,7 +8,13 @@ puts "Enter a positive integer below 1000000 : "
 iterate = gets.chomp.to_i
 
 start_time = Time.now
-collatz = Hash.new{ |h,k|
+
+hash = Hash.new
+
+collatz = lambda do |key|
+	return hash[key] if hash[key]
+	h = hash
+	k = key
 	if k < 2
 		h[k] = k
 	else
@@ -18,25 +24,28 @@ collatz = Hash.new{ |h,k|
 			if num % 2 == 0
 				num = num / 2
 			else
-				num = num * 3 + 1			
+				num = num * 3 + 1
 			end
 			count += 1
-		end	
+			if hash[num]
+				return hash[key] = hash[num] + count
+			end
+		end
 		h[k] = count
 	end
-}
+end
 
 def largest_hash_key(hash)
 	hash.max_by{|k,v| v}
 end
 
 while iterate > 2
-	collatz[iterate]
+	collatz.call iterate
 	iterate -= 1
-end	
+end
 
-key = largest_hash_key(collatz)[0]
+key = largest_hash_key(hash)[0]
 
-puts "number with most steps = " + largest_hash_key(collatz)[0].to_s
-puts "it takes #{collatz[key].to_s} steps to reach zero."
+puts "number with most steps = " + largest_hash_key(hash)[0].to_s
+puts "it takes #{hash[key].to_s} steps to reach zero."
 puts "completed in :" + (Time.now - start_time).to_s + " seconds"

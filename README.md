@@ -6,4 +6,4 @@ Includes explanation and timer as calculations grow with big numbers.  Solves up
 Latest version relies on using Hash.new with a block.
 
 #### Cross reference step checking here:
-[http://skanderkort.com/collatz_conjecture_calculator](http://skanderkort.com/collatz_conjecture_calculator)
+[https://www.dcode.fr/collatz-conjecture](https://www.dcode.fr/collatz-conjecture)

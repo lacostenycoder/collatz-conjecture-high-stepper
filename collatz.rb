@@ -34,5 +34,5 @@ end
 high_number = largest_hash_key[0]
 
 puts "number with most steps = #{high_number}"
-puts "it takes #{@hash[high_number]} steps to reach zero."
+puts "it takes #{@hash[high_number] + 1} steps to reach zero."
 puts "completed in : #{(Time.now - start_time).to_s} seconds"
